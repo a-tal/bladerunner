@@ -7,7 +7,7 @@ python:
   - '3.3'
   - '3.4'
   - 'pypy'
-  - 'pyp3'
+  - 'pypy3'
 
 before_install:
   - pip install --upgrade pexpect
