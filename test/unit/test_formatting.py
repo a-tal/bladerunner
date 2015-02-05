@@ -54,8 +54,7 @@ def fake_unicode_decode_error():
     """Fixture to provide a fake UnicodeDecodeError Exception class."""
 
     if sys.version_info > (3,):
-        return UnicodeDecodeError("utf-8", memoryview(bytes("fake", "utf-8")),
-                                  1, 1, "ok")
+        return UnicodeDecodeError("utf-8", bytes("fake", "utf-8"), 1, 1, "ok")
     else:
         return UnicodeDecodeError(str("utf-8"), str("fake"), 1, 1, str("ok"))
 
