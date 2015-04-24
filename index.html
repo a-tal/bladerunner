@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Bladerunner : A quick way to push changes or run audits across a multitude of devices.">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Bladerunner</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/a-tal/bladerunner">View on GitHub</a>
+
+          <h1 id="project_title">Bladerunner</h1>
+          <h2 id="project_tagline">A quick way to push changes or run audits across a multitude of devices.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/a-tal/bladerunner/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/a-tal/bladerunner/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="bladerunner" class="anchor" href="#bladerunner" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bladerunner</h1>
+
+<p><a href="https://travis-ci.org/a-tal/bladerunner"><img src="https://travis-ci.org/a-tal/bladerunner.png?branch=master" alt="Build Status"></a>
+<a href="https://coveralls.io/r/a-tal/bladerunner?branch=master"><img src="https://coveralls.io/repos/a-tal/bladerunner/badge.png?branch=master" alt="Coverage Status"></a>
+<a href="https://pypi.python.org/pypi/bladerunner/"><img src="https://pypip.in/v/bladerunner/badge.png" alt="Version"></a>
+<a href="https://pypi.python.org/pypi/bladerunner/"><img src="https://pypip.in/d/bladerunner/badge.png" alt="Downloads this month"></a></p>
+
+<h1></h1>
+
+<p>Bladerunner is a program to send and receive information from any type of ssh enabled text based device.
+It can run through a jumpbox if there are networking restrictions. You can also provide an additional password
+to use for any program after logging in, such as MySQL or sudo. bladerunner will attempt to use the host password
+for everything unless you specify otherwise, allowing it to default through sudo in simple use cases. MySQL, FTP,
+and telnet prompts are included as well as the default Ubuntu and CentOS bash shells and password prompts. You can
+provide an additional prompt via command line arguments. bladerunner will automatically accept SSH certificates and
+will throw ^C at any command that exceeds the timeout before returning. Commands can be loaded into a file and run
+from there line by line per host.</p>
+
+<h2>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install</h2>
+
+<p>Installation is done via the usual methods:</p>
+
+<div class="highlight highlight-sh"><pre>$ python setup.py build
+$ sudo python setup.py install</pre></div>
+
+<p>Alternatively, you can install via pip:</p>
+
+<div class="highlight highlight-sh"><pre>$ pip install bladerunner</pre></div>
+
+<h2>
+<a id="requires" class="anchor" href="#requires" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requires</h2>
+
+<p>Python (v2.7+), pexpect and <a href="https://pypi.python.org/pypi/futures">futures 2.1.3</a>.</p>
+
+<h2>
+<a id="options" class="anchor" href="#options" aria-hidden="true"><span class="octicon octicon-link"></span></a>Options</h2>
+
+<p>For a full list of options use:</p>
+
+<div class="highlight highlight-sh"><pre>bladerunner --help</pre></div>
+
+<p>Using a file with a list of commands in it is an easy way to execute more complex tasks.</p>
+
+<h2>
+<a id="further-documentation" class="anchor" href="#further-documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Further Documentation</h2>
+
+<p>Sphinx autodocs are available <a href="http://pythonhosted.org/bladerunner/">on pythonhosted</a>.</p>
+
+<h2>
+<a id="python-3" class="anchor" href="#python-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Python 3</h2>
+
+<p>Bladerunner fully supports Python 3.</p>
+
+<h2>
+<a id="pypy" class="anchor" href="#pypy" aria-hidden="true"><span class="octicon octicon-link"></span></a>PyPy</h2>
+
+<p>Bladerunner is also compatable with <a href="http://pypy.org/">PyPy and PyPy3</a>.</p>
+
+<h2>
+<a id="changelog" class="anchor" href="#changelog" aria-hidden="true"><span class="octicon octicon-link"></span></a>Changelog</h2>
+
+<p>The full changelog from version 3.7 onward is available <a href="https://github.com/Demonware/bladerunner/wiki/Changelog">on the wiki</a>.</p>
+
+<h2>
+<a id="bugs--todo" class="anchor" href="#bugs--todo" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bugs &amp; TODO</h2>
+
+<p>If you come across a bug, please create a new issue in the <a href="https://github.com/Demonware/bladerunner/issues">issue tracking system</a> with enough relevant details and it will be dealt with promptly.</p>
+
+<h2>
+<a id="copyright-and-license" class="anchor" href="#copyright-and-license" aria-hidden="true"><span class="octicon octicon-link"></span></a>Copyright and License</h2>
+
+<p>bladerunner was written by Adam Talsma <a href="mailto:adam@demonware.net">adam@demonware.net</a>.</p>
+
+<p>Copyright (c) 2015, Activision Publishing, Inc.
+All rights reserved.</p>
+
+<p>Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:</p>
+
+<ul>
+<li><p>Redistributions of source code must retain the above copyright notice, this list
+of conditions and the following disclaimer.</p></li>
+<li><p>Redistributions in binary form must reproduce the above copyright notice, this
+list of conditions and the following disclaimer in the documentation and/or
+other materials provided with the distribution.</p></li>
+<li><p>Neither the name of Activision Publishing, Inc. nor the names of its
+contributors may be used to endorse or promote products derived from this
+software without specific prior written permission.</p></li>
+</ul>
+
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Bladerunner maintained by <a href="https://github.com/a-tal">a-tal</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
