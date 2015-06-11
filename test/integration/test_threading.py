@@ -49,7 +49,7 @@ def parse_results(results, should_fail=False):
                     if should_fail:
                         assert "err" in result, "did not receive expected err"
                     else:
-                        assert not "err" in result, "login err. is ssh setup?"
+                        assert "err" not in result, "login err. is ssh setup?"
 
 
 def parse_for_success(results):

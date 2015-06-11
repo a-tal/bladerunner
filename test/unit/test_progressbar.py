@@ -74,7 +74,7 @@ def test_counters_reduce_width(updates):
     assert pbar.width == 40 - ((len(str(updates)) * 2) + 4)
 
 
-def test_setup(capfd):
+def test_empty_setup(capfd):
     """Ensure we create the initial empty bar correctly."""
 
     pbar = ProgressBar(10, {"width": 20, "style": 1})
@@ -177,7 +177,8 @@ def test_clear(capfd):
     assert "                    " in stdout
 
 
-@pytest.mark.skipif(not "termios" in globals(), reason="termios not found")
+@pytest.mark.skipif("termios" not in globals(), reason="termios not found")
+@pytest.mark.skipif(not hasattr(os, "ctermid"), reason="no ctermid in os")
 def test_get_term_width():
     """Verify the calls made to attempt to guess the terminal width."""
 
@@ -204,7 +205,8 @@ def test_get_term_width():
         assert p_io.mock_calls == calls_to_verify
 
 
-@pytest.mark.skipif(not "termios" in globals(), reason="termios not found")
+@pytest.mark.skipif("termios" not in globals(), reason="termios not found")
+@pytest.mark.skipif(not hasattr(os, "ctermid"), reason="no ctermid in os")
 def test_get_term_with_os_err():
     """Simulate an exception from os.ctermid, should be ignored."""
 

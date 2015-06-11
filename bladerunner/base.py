@@ -1,37 +1,4 @@
-"""Bladerunner provides a method of pushing changes or running audits on groups
-of similar hosts over SSH using pexpect (http://pexpect.sourceforge.net). Can
-be extended to use an intermediary host if there are networking restrictions.
-
-This file is part of Bladerunner.
-
-Copyright (c) 2015, Activision Publishing, Inc.
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above copyright notice, this
-  list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation
-  and/or other materials provided with the distribution.
-
-* Neither the name of Activision Publishing, Inc. nor the names of its
-  contributors may be used to endorse or promote products derived from this
-  software without specific prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-"""
+"""Bladerunner base object and logic."""
 
 
 from __future__ import unicode_literals
@@ -49,12 +16,7 @@ from concurrent.futures import ThreadPoolExecutor
 from bladerunner.progressbar import ProgressBar
 from bladerunner.interactive import BladerunnerInteractive
 from bladerunner.networking import can_resolve, ips_in_subnet
-from bladerunner.formatting import (
-    FakeStdOut,
-    format_line,
-    format_output,
-    DEFAULT_ENCODING,
-)
+from bladerunner.formatting import DEFAULT_ENCODING, FakeStdOut, format_output
 
 
 if sys.version_info > (3,):
@@ -128,7 +90,7 @@ class Bladerunner(object):
         }
 
         for key, value in defaults.items():
-            if not key in options:
+            if key not in options:
                 options[key] = value
 
         options = _set_shells(options)
@@ -152,8 +114,8 @@ class Bladerunner(object):
         self.interactive_hosts = {}
 
         if not self.options["windows_line_endings"] and \
-          not self.options["unix_line_endings"] and hasattr(os, "uname") and \
-          "darwin" in os.uname()[0].lower():
+           not self.options["unix_line_endings"] and hasattr(os, "uname") and \
+           "darwin" in os.uname()[0].lower():
             # Apples have special needs... default them to unix line endings
             self.options["unix_line_endings"] = True
 

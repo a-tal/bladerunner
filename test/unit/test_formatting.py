@@ -186,7 +186,7 @@ def test_consolidate_results(fake_results):
     for result_set in formatting.consolidate(fake_results):
         assert "names" in result_set
         assert isinstance(result_set["names"], list)
-        assert not "name" in result_set
+        assert "name" not in result_set
         assert result_set["names"] in expected_groups
 
 
@@ -238,7 +238,7 @@ def test_prepare_results(fake_results):
     assert options["style"] == 0
     assert options["width"] == 101
     assert "names" in results[0]
-    assert not "name" in results[0]
+    assert "name" not in results[0]
 
 
 def test_already_consildated(fake_results):

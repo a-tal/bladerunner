@@ -84,8 +84,10 @@ def fake_inter():
 def bad_function_1(session=None):
     return session.run("who")
 
+
 def bad_function_2(session, other_thing=None):
     return session.run("who")
+
 
 def bad_function_3(session, other_thing):
     return session.run("who")
@@ -487,10 +489,10 @@ def test_send_cmd_winderps_endings(unicode_chr):
     server.expect = Mock(return_value=1)
 
     with patch.object(base, "format_output") as p_format_out:
-        runner._send_cmd("faked", server)
+        runner._send_cmd("fake", server)
 
-    p_format_out.assert_called_once_with(server.before, "faked", runner.options)
-    server.send.assert_called_once_with("faked{0}{1}".format(
+    p_format_out.assert_called_once_with(server.before, "fake", runner.options)
+    server.send.assert_called_once_with("fake{0}{1}".format(
         unicode_chr(0x000D),
         unicode_chr(0x000A),
     ))
@@ -772,7 +774,7 @@ def test_connect_exception_guess(pexpect_exceptions):
     with patch.object(base, "can_resolve", return_value=True):
         with patch.object(base.pexpect, "spawn", return_value=sshr) as p_spawn:
             with patch.object(runner, "_try_for_unmatched_prompt") as p_guess:
-                res = runner.connect("fence", "tim", "hunter1", 4)
+                runner.connect("fence", "tim", "hunter1", 4)
 
     p_spawn.assert_called_once_with("ssh -p 4 -t tim@fence", timeout="fake")
     p_guess.assert_called_once_with(sshr, sshr.before, "ssh -p 4 -t tim@fence",
@@ -1222,11 +1224,10 @@ def test_interactive_connect():
     """Ensure child objects are stored on successful initial connection."""
 
     runner = Bladerunner()
-    with patch.object(
-        base.BladerunnerInteractive,
-        "connect",
-        return_value=True) as patched_connect:
-         res = runner.interactive("somewhere neat")
+    mock_connect = patch.object(base.BladerunnerInteractive, "connect",
+                                return_value=True)
+    with mock_connect as patched_connect:
+        res = runner.interactive("somewhere neat")
 
     assert isinstance(res, base.BladerunnerInteractive)
     patched_connect.assert_called_once_with(status_return=True)
@@ -1236,11 +1237,10 @@ def test_interactive_connect_failure():
     """Ensure child objects are not stored on failed initial connection."""
 
     runner = Bladerunner()
-    with patch.object(
-        base.BladerunnerInteractive,
-        "connect",
-        return_value=False) as patched_connect:
-         res = runner.interactive("happy town")
+    mock_connect = patch.object(base.BladerunnerInteractive, "connect",
+                                return_value=False)
+    with mock_connect as patched_connect:
+        res = runner.interactive("happy town")
 
     assert res is None
     patched_connect.assert_called_once_with(status_return=True)

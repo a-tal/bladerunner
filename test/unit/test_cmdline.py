@@ -7,7 +7,6 @@ import pytest
 import getpass
 import tempfile
 from mock import call
-from mock import Mock
 from mock import patch
 
 from bladerunner import cmdline
@@ -54,7 +53,6 @@ def test_get_help():
     """Ensure we raise SystemExit with a help message."""
 
     sys.argv.append("--help")
-    dummy_runner = Bladerunner()
     with pytest.raises(SystemExit):
         with patch.object(cmdline, "print_help") as helper:
             cmdline_entry()

@@ -1,27 +1,51 @@
 language: python
 
 python:
-  - '2.6'
-  - '2.7'
-  - '3.2'
-  - '3.3'
-  - '3.4'
-  - 'pypy'
-  - 'pypy3'
+  - "3.4"
+
+env:
+  - TOXENV=py26
+  - TOXENV=py27
+  - TOXENV=py32
+  - TOXENV=py33
+  - TOXENV=py34
+  - TOXENV=pypy
+  - TOXENV=pypy3
+  - TOXENV=pep8
 
 before_install:
-  - pip install --upgrade pexpect
-  - pip install --upgrade coveralls
-  - pip install --upgrade coverage
-  - pip install --upgrade tornado
-  - pip install --upgrade pytest
-  - pip install --upgrade pytest-cov
+  - pip install -U pip tox coveralls wheel setuptools
   - if [[ $TRAVIS_PYTHON_VERSION =~ "2." ]]; then pip install --upgrade futures; fi
 
-script: "python setup.py test"
+script: tox
 
 after_success:
   - coveralls
+
+before_deploy:
+  - python setup.py build sdist bdist_wheel
+  - if [ "x" == "$(grep $(git tag -l --points-at=HEAD) bladerunner/__init__.py)x" ]; then echo 'new tag does not exist in __init__.py; bailing!'; exit 1; else echo "tag found in __init__.py"; fi
+
+deploy:
+  - provider: pypi
+    user: atal
+    skip_cleanup: true
+    distributions: "sdist bdist_wheel"
+    password:
+      secure: "X6MZU42NMezgjuIkXE7XF6aZv0KmxKrix8cCJTedRmjYXqSHCqYZ3LCuJdNveRBUG36WZGVYbtDKx96dLwvCIWryOKcdcH7TkrB8CuDCeO39lPr9L7MYWiZX+72Xfi8TL9X8u5RQVoNWAVB7d3CZ4kzylPpot9cm7DbWpmqLSJE="
+    on:
+      tags: true
+      repo: a-tal/bladerunner
+      condition: $TOXENV = py34
+  - provider: releases
+    api_key:
+      secure: "h7n+8ndAGOWKNnKdKwTxBhK5sWg3IJ9LMHyvTL1V2paegEtJAqFiP0TaUZGaz8x5fhNcnmQNSAsQzOPMcGSkuO/d13HMvtzs7VvXHw/830c2Nf1ScAdojZKGjNWhB2YPr8EWMLffp7yYNlywhmtegbWpsc0jLWE1nGH7hMGvtnI="
+    file: "/home/travis/build/a-tal/bladerunner/dist/*.whl"
+    file_glob: true
+    skip_cleanup: true
+    on:
+      tags: true
+      condition: $TOXENV = py34
 
 notifications:
   irc:
