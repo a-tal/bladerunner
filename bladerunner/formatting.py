@@ -19,7 +19,7 @@ DEFAULT_ENCODING = "utf-8"
 if sys.version_info > (3,):
     UNICODE_TYPE = str
 else:
-    UNICODE_TYPE = unicode
+    UNICODE_TYPE = unicode  # nopep8
 
 
 class FakeStdOut(object):
@@ -613,6 +613,6 @@ def _prompt_for_input_on_error(user_msg, error):
         if sys.version_info > (3,):
             return input(user_msg)
         else:
-            return raw_input(user_msg)
+            return raw_input(user_msg)  # nopep8
     except KeyboardInterrupt:
         raise error

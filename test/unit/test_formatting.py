@@ -66,8 +66,13 @@ def fake_unicode_encode_error():
     if sys.version_info > (3,):
         return UnicodeEncodeError("utf-8", "ok", 1, 1, "fake")
     else:
-        return UnicodeEncodeError(str("utf-8"), unicode("fake"), 1, 1,
-                                  str("ok"))
+        return UnicodeEncodeError(
+            str("utf-8"),
+            unicode("fake"),  # nopep8
+            1,
+            1,
+            str("ok"),
+        )
 
 
 def assert_all_encodings(string, patched):

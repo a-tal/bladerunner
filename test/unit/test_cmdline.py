@@ -402,7 +402,13 @@ def test_output_file_encoding_failure():
     if sys.version_info > (3,):
         err = UnicodeEncodeError("utf-8", "yes", 1, 1, "ok")
     else:
-        err = UnicodeEncodeError(str("utf-8"), unicode("yes"), 1, 1, str("ok"))
+        err = UnicodeEncodeError(
+            str("utf-8"),
+            unicode("yes"),  # nopep8
+            1,
+            1,
+            str("ok"),
+        )
 
     open_patch = patch.object(cmdline.io, "open", side_effect=err)
 

@@ -25,8 +25,8 @@ if sys.version_info > (3,):
     UNICODE_CHR = chr
 else:
     PY3 = False
-    STRING_TYPE = basestring
-    UNICODE_CHR = unichr
+    STRING_TYPE = basestring  # nopep8
+    UNICODE_CHR = unichr      # nopep8
 
 
 class Bladerunner(object):

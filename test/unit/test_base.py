@@ -41,7 +41,7 @@ def unicode_chr():
     if sys.version_info > (3,):
         return chr
     else:
-        return unichr
+        return unichr  # nopep8
 
 
 @pytest.fixture(params=(pexpect.EOF, pexpect.TIMEOUT), ids=("EOF", "TIMEOUT"))
