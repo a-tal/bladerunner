@@ -4,14 +4,17 @@ python:
   - "3.4"
 
 env:
-  - TOXENV=py26
-  - TOXENV=py27
-  - TOXENV=py32
-  - TOXENV=py33
-  - TOXENV=py34
-  - TOXENV=pypy
-  - TOXENV=pypy3
-  - TOXENV=pep8
+  global:
+    secure: "ZUW2raXYAiqfOFpN4aPd9ntc916eVxHJlopASex5nF8LaDYwvNDGSiPlIHsqU6JTttkWCzqPlOC2KPML+evS0hEIgBtAIk1DZncrQU+tLpVvf2jTQnBfq+vuo2acAP2HJCbWmBj9ePKVWiMfjK5+iXY31CzhFl0naYYxlMMt1fc="
+  matrix:
+    - TOXENV=py26
+    - TOXENV=py27
+    - TOXENV=py32
+    - TOXENV=py33
+    - TOXENV=py34
+    - TOXENV=pypy
+    - TOXENV=pypy3
+    - TOXENV=pep8
 
 before_install:
   - pip install -U pip tox coveralls wheel setuptools
@@ -21,6 +24,21 @@ script: tox
 
 after_success:
   - coveralls
+
+after_script:
+  - INSERTS=$(git diff --shortstat 62d52e04bb86614efc3e6e280b2c9adccddde83f master | cut -d ',' -f2 | awk '{print $1}')
+  - DELETES=$(git diff --shortstat 62d52e04bb86614efc3e6e280b2c9adccddde83f master | cut -d ',' -f3 | awk '{print $1}')
+  - TOTAL=$(expr $INSERTS + $DELETES)
+  - git checkout 62d52e04bb86614efc3e6e280b2c9adccddde83f
+  - STARTING=$(git ls-files | xargs wc -l | grep total | awk '{print $1}')
+  - DIFF=$(awk "BEGIN {printf \"%.2f\n\", $TOTAL/$STARTING * 100}")
+  - git checkout master
+  - git config --global user.name "a-tal"
+  - git config --global user.email "github@talsma.ca"
+  - sed -i -e "s/lines_in-.*/lines_in-$INSERTS-green.svg/" README.rst
+  - sed -i -e "s/lines_out-.*/lines_out-$DELETES-red.svg/" README.rst
+  - sed -i -e "s/total_change-.*/total_change-$DIFF%-yellow.svg/" README.rst
+  - if [[ $TOXENV == "py34" ]]; then git add README.rst; git commit -m '[ci skip] auto updated diff badges'; git push --force "https://$github_token@github.com/a-tal/bladerunner.git" master; fi
 
 before_deploy:
   - python setup.py build sdist bdist_wheel

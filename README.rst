@@ -332,6 +332,34 @@ If you come across a bug, please create a new issue in the `issue
 tracking system <https://github.com/a-tal/bladerunner/issues>`__ with
 enough relevant details and it will be dealt with promptly.
 
+
+Authoritative Source
+====================
+
+Note that `this repository <https://github.com/a-tal/bladerunner>`__ is the
+source repository for the Python Packaging Index and is the upstream repository
+for all bug fixes and feature development.
+
+This repository is distributed under the GPLv2 license, with the acknowledgement
+that some (most, for now) of the library source code is under the BSD license
+and is still Copyright (c) 2015 Activision Publishing, Inc (see the LICENSE file
+for full details).
+
+Having said that, this project is transitioning away from the prior codebase.
+To track how much of the code base is GPLv2 vs BSD, you can use:
+
+.. code:: bash
+
+    $ git diff --stat 62d52e04bb86614efc3e6e280b2c9adccddde83f master
+
+It's also being tracked and updated via Travis-CI right here:
+
+|Lines In|
+
+|Lines Out|
+
+|Total Change|
+
 .. |Build Status| image:: https://travis-ci.org/a-tal/bladerunner.png?branch=master
    :target: https://travis-ci.org/a-tal/bladerunner
 .. |Coverage Status| image:: https://coveralls.io/repos/a-tal/bladerunner/badge.png?branch=master
@@ -340,3 +368,6 @@ enough relevant details and it will be dealt with promptly.
    :target: https://pypi.python.org/pypi/bladerunner/
 .. |Downloads this month| image:: https://img.shields.io/pypi/dm/bladerunner.svg
    :target: https://pypi.python.org/pypi/bladerunner/
+.. |Lines In| image:: https://img.shields.io/badge/lines_in-619-green.svg
+.. |Lines out| image:: https://img.shields.io/badge/lines_out-1096-red.svg
+.. |Total Change| image:: https://img.shields.io/badge/total_change-22.74%-yellow.svg
