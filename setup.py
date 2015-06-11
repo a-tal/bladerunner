@@ -19,6 +19,13 @@ def find_version(filename):
     return "0.0-version-unknown"
 
 
+def read_description(filename):
+    """Reads filename and returns its contents."""
+
+    with io.open(filename, encoding="utf-8") as opendescription:
+        return opendescription.read()
+
+
 class PyTest(TestCommand):
     """Shim in pytest to be able to use it with setup.py test."""
 
@@ -43,7 +50,7 @@ setup(
     name="bladerunner",
     version=find_version("bladerunner/__init__.py"),
     author="Adam Talsma",
-    author_email="adam@demonware.net",
+    author_email="adam@talsma.ca",
     packages=["bladerunner"],
     install_requires=["pexpect >= 3.3", "futures"],
     entry_points={
@@ -51,16 +58,10 @@ setup(
             'bladerunner = bladerunner.cmdline:main',
         ]
     },
-    url="https://github.com/Demonware/bladerunner",
+    url="https://github.com/a-tal/bladerunner",
     description="Execution of commands on hosts",
-    long_description=(
-        "Bladerunner provides an easy to use interface to quickly audit or "
-        "push changes to a multitude of hosts. It uses pexpect, so pattern "
-        "matching is at its heart. Be aware of returning to a shell prompt "
-        "after every command executed. Several options are available for "
-        "custom networking and host setups."
-    ),
-    download_url="https://github.com/Demonware/bladerunner",
+    long_description=read_description("README.rst"),
+    download_url="https://github.com/a-tal/bladerunner",
     tests_require=["pytest", "pytest-cov", "mock", "tornado"],
     cmdclass={"test": PyTest},
     license="BSD",
