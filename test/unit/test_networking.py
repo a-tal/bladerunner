@@ -3,12 +3,8 @@
 
 import pytest
 
-from bladerunner.networking import (
-    can_resolve,
-    ips_in_subnet,
-    _ip_to_binary,
-    _binary_to_ip,
-)
+from bladerunner.networking import can_resolve
+from bladerunner.networking import ips_in_subnet
 
 
 @pytest.mark.parametrize(
@@ -17,8 +13,9 @@ from bladerunner.networking import (
         ("10.0.0.0/30", ["10.0.0.1", "10.0.0.2"]),
         ("192.168.16.5/32", ["192.168.16.5"]),
         ("10.16.255.16/255.255.255.255", ["10.16.255.16"]),
+        ("1.2.3.4", ["1.2.3.4"]),
     ),
-    ids=("simple small", "slash 32", "expanded slash 32"),
+    ids=("simple small", "slash 32", "expanded slash 32", "no mask required"),
 )
 def test_example_networks(network, expected):
     """Test some example network exact conversions."""
@@ -48,10 +45,9 @@ def test_in_network(ipaddr, network):
         "10.10.10.0/255.255.279.0",
         "10.9.8.0/-3",
         "10.9.8.0/34",
-        "1.2.3.4",
     ),
     ids=("invalid ip", "invalid subnet", "mask too big", "invalid slash",
-         "oversized slash", "no mask")
+         "oversized slash")
 )
 def test_invalid_returns_none(ipaddr):
     assert ips_in_subnet(ipaddr) is None
@@ -62,11 +58,3 @@ def test_can_resolve():
 
     assert can_resolve("google.com")
     assert not can_resolve("googly.boogly.doodley-do.1234abcd")
-
-
-def test_converting_back_and_forth():
-    """Test converting back to ip from binary."""
-
-    starting = "10.1.2.3"
-    made_binary = _ip_to_binary(starting)
-    assert _binary_to_ip(made_binary) == starting

@@ -3,6 +3,7 @@
 
 import io
 import re
+import sys
 
 from setuptools import setup
 from setuptools.command.test import test as TestCommand
@@ -46,13 +47,20 @@ class PyTest(TestCommand):
         raise SystemExit(errno)
 
 
+REQUIRES = ["pexpect >= 3.3", "six >= 1.9.0"]
+if sys.version_info < (3, 2):
+    REQUIRES.append("futures >= 2.2.0")
+if sys.version_info < (3, 3):
+    REQUIRES.append("ipaddress >= 1.0.7, < 2.0.0")
+
+
 setup(
     name="bladerunner",
     version=find_version("bladerunner/__init__.py"),
     author="Adam Talsma",
     author_email="adam@talsma.ca",
     packages=["bladerunner"],
-    install_requires=["pexpect >= 3.3", "futures"],
+    install_requires=REQUIRES,
     entry_points={
         'console_scripts': [
             'bladerunner = bladerunner.cmdline:main',

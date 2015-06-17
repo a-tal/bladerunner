@@ -3,7 +3,7 @@
 
 from __future__ import unicode_literals
 import os
-import sys
+import six
 import math
 import time
 import codecs
@@ -17,16 +17,6 @@ from bladerunner.progressbar import ProgressBar
 from bladerunner.interactive import BladerunnerInteractive
 from bladerunner.networking import can_resolve, ips_in_subnet
 from bladerunner.formatting import DEFAULT_ENCODING, FakeStdOut, format_output
-
-
-if sys.version_info > (3,):
-    PY3 = True
-    STRING_TYPE = str
-    UNICODE_CHR = chr
-else:
-    PY3 = False
-    STRING_TYPE = basestring  # nopep8
-    UNICODE_CHR = unichr      # nopep8
 
 
 class Bladerunner(object):
@@ -362,13 +352,13 @@ class Bladerunner(object):
             if self.options["unix_line_endings"]:
                 server.send("{0}{1}".format(
                     command,
-                    UNICODE_CHR(0x000A),
+                    six.unichr(0x000A),
                 ))
             elif self.options["windows_line_endings"]:
                 server.send("{0}{1}{2}".format(
                     command,
-                    UNICODE_CHR(0x000D),
-                    UNICODE_CHR(0x000A),
+                    six.unichr(0x000D),
+                    six.unichr(0x000A),
                 ))
             else:
                 server.sendline(command)
@@ -604,20 +594,12 @@ class Bladerunner(object):
                 self.send_interrupt(self.sshc)
                 return (None, -1)
 
-            if PY3:
-                look_for = bytes("Permission denied", DEFAULT_ENCODING)
-            else:
-                look_for = "Permission denied"
-
-            if self.sshc.before.find(look_for) != -1:
+            if self.sshc.before.find(six.b("Permission denied")) != -1:
                 self.send_interrupt(self.sshc)
                 return (None, -4)
 
             for net_err in ("Network is unreachable", "Connection refused"):
-                if PY3:
-                    net_err = bytes(net_err, DEFAULT_ENCODING)
-
-                if self.sshc.before.find(net_err) != -1:
+                if self.sshc.before.find(six.b(net_err)) != -1:
                     self.send_interrupt(self.sshc)
                     return (None, -7)
 
@@ -728,7 +710,7 @@ class Bladerunner(object):
         """
 
         try:
-            sshc.sendline(UNICODE_CHR(0x003))
+            sshc.sendline(six.unichr(0x003))
             sshc.expect(
                 self.options["shell_prompts"] +
                 self.options["extra_prompts"],
@@ -816,7 +798,7 @@ class Bladerunner(object):
             list of string hostnames or IP addresses
         """
 
-        if isinstance(hosts, STRING_TYPE) and os.path.isfile(hosts):
+        if isinstance(hosts, six.string_types) and os.path.isfile(hosts):
             hostfp = hosts
             with open(hostfp, "r") as hostsfile:
                 hosts = hostsfile.read().splitlines()
