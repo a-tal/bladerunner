@@ -1,6 +1,10 @@
 Bladerunner
 ===========
 
+.. image:: https://badges.gitter.im/Join%20Chat.svg
+   :alt: Join the chat at https://gitter.im/a-tal/bladerunner
+   :target: https://gitter.im/a-tal/bladerunner?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+
 |Build Status| |Coverage Status| |Version| |Downloads this month|
 
 ===========
