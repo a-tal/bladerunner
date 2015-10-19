@@ -441,6 +441,9 @@ class Bladerunner(object):
                     _from_login=_from_login,
                     _attempts_left=(_attempts_left - 1),
                 )
+        except OSError:
+            # we've lost the underlying connection
+            return -1
         else:
             self._push_expect_forward(server)
             if _from_login:
@@ -756,7 +759,10 @@ class Bladerunner(object):
             None: the sshc will be at the jumpbox, or the connection is closed
         """
 
-        sshc.sendline("exit")
+        try:
+            sshc.sendline("exit")
+        except OSError:
+            pass
 
         if terminate:
             sshc.terminate()
