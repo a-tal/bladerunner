@@ -7,9 +7,7 @@ env:
   global:
     secure: "ZUW2raXYAiqfOFpN4aPd9ntc916eVxHJlopASex5nF8LaDYwvNDGSiPlIHsqU6JTttkWCzqPlOC2KPML+evS0hEIgBtAIk1DZncrQU+tLpVvf2jTQnBfq+vuo2acAP2HJCbWmBj9ePKVWiMfjK5+iXY31CzhFl0naYYxlMMt1fc="
   matrix:
-    - TOXENV=py26
     - TOXENV=py27
-    - TOXENV=py32
     - TOXENV=py33
     - TOXENV=py34
     - TOXENV=pypy
