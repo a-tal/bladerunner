@@ -285,6 +285,7 @@ def test_unlisting_argparse():
         threads = [50]
         jump_port = [24]
         port = [25]
+        ssh = ["ssh"]
         debug = [3]
         output_file = False
         style = None
@@ -304,6 +305,7 @@ def test_unlisting_argparse():
         "jump_port",
         "threads",
         "debug",
+        "ssh",
     ]
     for unlist in unlistings:
         assert getattr(settings, unlist) == getattr(FakeSettings, unlist)[0]

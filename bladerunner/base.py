@@ -69,6 +69,7 @@ class Bladerunner(object):
             "port": 22,
             "progressbar": False,
             "second_password": None,
+            "ssh": "ssh",
             "ssh_key": None,
             "style": 0,
             "threads": 100,
@@ -525,7 +526,12 @@ class Bladerunner(object):
         if isinstance(debug, int) and debug > 0:
             flags.append("-{0}".format("v" * debug))
 
-        return "ssh {flags} {user}@{host}".format(
+        if self.options["ssh"] != "ssh":
+            # unset flags when not using standard SSH command
+            flags = []
+
+        return "{ssh} {flags} {user}@{host}".format(
+            ssh=self.options["ssh"],
             flags=" ".join(flags),
             user=username,
             host=target,
@@ -545,7 +551,7 @@ class Bladerunner(object):
             a pexpect object that can be passed back here or to send_commands()
         """
 
-        if not can_resolve(target):
+        if self.options["ssh"] == "ssh" and not can_resolve(target):
             return (None, -3)
 
         ssh_cmd = self._build_ssh_command(target, username, port)

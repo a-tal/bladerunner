@@ -90,6 +90,7 @@ def convert_to_options(settings):
         "password": settings.password,
         "second_password": settings.second_password,
         "password_safety": settings.password_safety,
+        "ssh": settings.ssh,
         "ssh_key": settings.ssh_key,
         "style": settings.style,
         "csv_char": settings.csv_char,
@@ -140,6 +141,7 @@ Options:
   -D --port\t\t\t\tUse a non non-standard SSH port for the target hosts
   -s --second-password=<password>\tSupply a second password (-s to prompt)
   -S --style=<int>\t\t\tOutput style (0=default, 1=ASCII, 2=double, 3=rounded)
+     --ssh=<cmd>\t\t\tSSH command to use (default: ssh)
   -k --ssh-key=<file>\t\t\tUse a non-default ssh key
   -t --threads=<int>\t\t\tMaximum concurrent threads (default: 100)
   -d --time-delay=<seconds>\t\tAdd a time delay between hosts (default: 0s)
@@ -260,6 +262,7 @@ def argparse_unlisted(settings):
         ("cmd_timeout", 20),
         ("timeout", 20),
         ("threads", 100),
+        ("ssh", "ssh"),
     ]
 
     for setting, default in unlist_from_defaults:
@@ -526,6 +529,14 @@ def setup_argparse(args):
         action="store_true",
         default=False,
         help=argparse.SUPPRESS,
+    )
+
+    parser.add_argument(
+        "--ssh",
+        dest="ssh",
+        default="ssh",
+        metavar="CMD",
+        nargs=1,
     )
 
     parser.add_argument(

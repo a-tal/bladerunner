@@ -1,8 +1,8 @@
 """Bladerunner top level module exports and version information."""
 
 
-__version__ = "4.1.7"
-__release_date__ = "June 10, 2015"
+__version__ = "4.1.8"
+__release_date__ = "November 25, 2015"
 
 
 from bladerunner.base import Bladerunner

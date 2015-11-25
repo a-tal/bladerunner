@@ -93,6 +93,7 @@ how:
             "progressbar": True,
             "second_password": "super-sekrets",
             "shell_prompts": [],  # this list is typically auto-generated
+            "ssh": "ssh",
             "ssh_key": None,
             "stacked": False,  # preference flag for stacked results
             "style": 0,
@@ -323,6 +324,22 @@ the base object's options, like so:
             "not " * int(httpd_restarted is False),
         ))
 
+Non-Standard SSH
+----------------
+
+As of Bladerunner 4.1.8+ you can provide --ssh to give a non-standard
+command as ssh. This will clear any automatically added flags, so include
+them in your command if any are required. Also keep in mind if you are
+also using Bladerunner with a jumpbox, the ssh command needs to be
+available there as well.
+
+As a usage example for this, Bladerunner 4.1.8+ can be used with the gcloud CLI:
+
+.. code:: bash
+
+    $ bladerunner -nN --ssh="gcloud compute ssh" "echo 'hello world'" $(kubectl get nodes -o name | cut -d '/' -f2 | tr '\n' ' ')
+
+
 Changelog
 ---------
 
@@ -372,6 +389,6 @@ It's also being tracked and updated via Travis-CI right here:
    :target: https://pypi.python.org/pypi/bladerunner/
 .. |Downloads this month| image:: https://img.shields.io/pypi/dm/bladerunner.svg
    :target: https://pypi.python.org/pypi/bladerunner/
-.. |Lines In| image:: https://img.shields.io/badge/lines_in-656-green.svg
-.. |Lines out| image:: https://img.shields.io/badge/lines_out-1222-red.svg
-.. |Total Change| image:: https://img.shields.io/badge/total_change-24.90%-yellow.svg
+.. |Lines In| image:: https://img.shields.io/badge/lines_in-694-green.svg
+.. |Lines out| image:: https://img.shields.io/badge/lines_out-1224-red.svg
+.. |Total Change| image:: https://img.shields.io/badge/total_change-25.43%-yellow.svg
