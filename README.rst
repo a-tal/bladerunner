@@ -383,6 +383,6 @@ It's also being tracked and updated via Travis-CI right here:
    :target: https://pypi.python.org/pypi/bladerunner/
 .. |Downloads this month| image:: https://img.shields.io/pypi/dm/bladerunner.svg
    :target: https://pypi.python.org/pypi/bladerunner/
-.. |Lines In| image:: https://img.shields.io/badge/lines_in-694-green.svg
+.. |Lines In| image:: https://img.shields.io/badge/lines_in-688-green.svg
 .. |Lines out| image:: https://img.shields.io/badge/lines_out-1224-red.svg
-.. |Total Change| image:: https://img.shields.io/badge/total_change-25.43%-yellow.svg
+.. |Total Change| image:: https://img.shields.io/badge/total_change-25.35%-yellow.svg
