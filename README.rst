@@ -340,12 +340,6 @@ As a usage example for this, Bladerunner 4.1.8+ can be used with the gcloud CLI:
     $ bladerunner -nN --ssh="gcloud compute ssh" "echo 'hello world'" $(kubectl get nodes -o name | cut -d '/' -f2 | tr '\n' ' ')
 
 
-Changelog
----------
-
-The full changelog from version 3.7 onward is available `on the
-wiki <https://github.com/a-tal/bladerunner/wiki/Changelog>`__.
-
 Bugs & TODO
 -----------
 
