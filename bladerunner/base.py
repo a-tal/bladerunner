@@ -282,7 +282,7 @@ class Bladerunner(object):
             servers[0],
             self.options["username"],
             self.options["password"],
-            self.options['port'],
+            self.options["port"],
         )
         if error_code < 0:
             message = int(math.fabs(error_code)) - 1
@@ -319,7 +319,7 @@ class Bladerunner(object):
             server,
             self.options["username"],
             self.options["password"],
-            self.options['port'],
+            self.options["port"],
         )
         if error_code < 0:
             message = int(math.fabs(error_code)) - 1
@@ -407,10 +407,9 @@ class Bladerunner(object):
             format_output if it can find a new prompt, or -1 on error
         """
 
-        # prompt is usually in the last 30 chars of the last line of output
         # do /not/ format_line the prompt, it could contain special characters
         try:
-            new_prompt = output.splitlines()[-1][-30:]
+            new_prompt = output.splitlines()[-1]
         except IndexError:
             new_prompt = ""
 
