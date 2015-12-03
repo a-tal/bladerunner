@@ -22,7 +22,7 @@ from bladerunner.formatting import DEFAULT_ENCODING, FakeStdOut, format_output
 class Bladerunner(object):
     """Main logic for the serial execution of commands on hosts.
 
-    Initialized by a dictionary with the following optional keys (defaults)::
+    Initialized with either a single dictionary arg or the following kwargs::
 
         username: string username (None/current user)
         password: string plain text password, if required (None)
@@ -45,13 +45,14 @@ class Bladerunner(object):
         progressbar: boolean to declare if we want a progress display (False)
         unix_line_endings: force sending LF as line endings for commands
         windows_line_endings: force sending CRLF as line endings for commands
+        ssh: string executable to use for creating ssh connections (ssh)
     """
 
-    def __init__(self, options=None):
+    def __init__(self, options=None, **kwargs):
         """Fills in the options dictionary with any missing keys."""
 
-        if not options:
-            options = {}
+        if options is None:
+            options = kwargs
 
         defaults = {
             "cmd_timeout": 20,

@@ -394,12 +394,12 @@ def test_run_serial():
 def test_run_single_error():
     """Ensure an error is passed back during run_single on connect errors."""
 
-    runner = Bladerunner({
-        "username": "dudeguy",
-        "password": "hunter111",
-        "progressbar": True,
-        "port": 2212,
-    })
+    runner = Bladerunner(
+        username="dudeguy",
+        password="hunter111",
+        progressbar=True,
+        port=2212,
+    )
 
     runner.progress = ProgressBar(1, runner.options)
 
